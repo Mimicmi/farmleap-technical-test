@@ -30,10 +30,6 @@
       <div class="total-class">
         <p id="total"></p>
       </div>
-
-      <div class="average-class">
-        <p id="average"></p>
-      </div>
     </div>
   </body>
 </html>
@@ -103,8 +99,7 @@
       }
     }
     document.getElementById("result").innerHTML = result;
-    total();
-    average();
+    stats();
   }
 
   function arrayOfPlayers() {
@@ -116,7 +111,7 @@
     return arrayPlayers;
   }
 
-  function total() {
+  function stats() {
     arrayPlayers = arrayOfPlayers();
     let totalCm = 0;
     for (let i = 0; i < arrayPlayers.length; i++) {
@@ -124,11 +119,15 @@
     }
     let totalM = parseFloat(totalCm * 0.01);
     console.log(totalM);
-    let result = "Le total en mètre est de " + totalM;
+    let averageM = parseFloat(totalM / arrayPlayers.length);
+    let minValue = Math.min(...arrayPlayers) * 0.01;
+    let maxValue = Math.max(...arrayPlayers) * 0.01;
+    let result = "Le total en mètre est de " + totalM.toFixed(2) + "<br>" +
+    "La moyenne en mètre est de " + averageM.toFixed(2) + "<br>" +
+    "La valeur la plus basse est de " + minValue.toFixed(2) + " mètre" + "<br>" + 
+    "La valeur la plus haute est de " + maxValue.toFixed(2) + " mètre" + "<br>";
+    console.log(minValue);
+    console.log(maxValue);
     document.getElementById("total").innerHTML = result;
-  }
-
-  function average() {
-    //
   }
 </script>
