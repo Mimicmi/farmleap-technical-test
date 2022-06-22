@@ -35,6 +35,9 @@
 </html>
 
 <script>
+  // Check the value in the number of player input, loop to fill the form by the number of players
+  // Add a new div with reference heights at the end of the loop with a button ton 'Confirm'
+  // the heights of the players when all are filled
   function numberOfPlayers(el) {
     let form = document.createElement("form");
     form.id = "createdForm";
@@ -73,6 +76,9 @@
     document.body.appendChild(btn);
   }
 
+  // If statements to see if each values are ===, <, > to the reference heights
+  // refactoring of arrayOfPlayers in another function as it was used multiple times
+  // adds the results by modifying the DOM from the HTML (id = result)
   function solution() {
     arrayPlayers = arrayOfPlayers();
     let reference = document.getElementById("reference").value;
@@ -102,6 +108,7 @@
     stats();
   }
 
+  // Determine each value in the array
   function arrayOfPlayers() {
     let numberOfPlayers = document.getElementById("indicateNumber").value;
     let arrayPlayers = [];
@@ -111,6 +118,10 @@
     return arrayPlayers;
   }
 
+  // Solve all that was determined in the exercice: Sum, Average, Min & Max value
+  // Rounding at 2 numbers after the comma to solve issue with Floats
+  // First calculate the sum (total), then average (total / length of array)
+  // Min & Max value determined with native javascript function instead of using 2 nested loop
   function stats() {
     arrayPlayers = arrayOfPlayers();
     let totalCm = 0;
@@ -118,7 +129,6 @@
       totalCm += parseFloat(arrayPlayers[i]);
     }
     let totalM = parseFloat(totalCm * 0.01);
-    console.log(totalM);
     let averageM = parseFloat(totalM / arrayPlayers.length);
     let minValue = Math.min(...arrayPlayers) * 0.01;
     let maxValue = Math.max(...arrayPlayers) * 0.01;
@@ -126,8 +136,6 @@
     "La moyenne en mètre est de " + averageM.toFixed(2) + "<br>" +
     "La valeur la plus basse est de " + minValue.toFixed(2) + " mètre" + "<br>" + 
     "La valeur la plus haute est de " + maxValue.toFixed(2) + " mètre" + "<br>";
-    console.log(minValue);
-    console.log(maxValue);
     document.getElementById("total").innerHTML = result;
   }
 </script>
