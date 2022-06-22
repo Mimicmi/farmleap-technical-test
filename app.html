@@ -9,44 +9,20 @@
   <body>
     <div>
       <h1>Test technique</h1>
-      <form action="" method="post" class="form-class">
-        <div class="form-class">
-          <label for="taille"> Entrer la taille du rugbyman 1: </label>
-          <input type="number" min="0" id="taille1" required /> <span>cm</span>
-        </div>
-        <div class="form-class">
-          <label for="taille"> Entrer la taille du rugbyman 2: </label>
-          <input type="number" min="0" id="taille2" required />
-          <span>cm</span>
-        </div>
-        <div class="form-class">
-          <label for="taille"> Entrer la taille du rugbyman 3: </label>
-          <input type="number" min="0" id="taille3" required />
-          <span>cm</span>
-        </div>
-        <div class="form-class">
-          <label for="taille"> Entrer la taille du rugbyman 4: </label>
-          <input type="number" min="0" id="taille4" required />
-          <span>cm</span>
-        </div>
-        <div class="form-class">
-          <label for="taille"> Entrer la taille du rugbyman 5: </label>
-          <input type="number" min="0" id="taille5" required />
-          <span>cm</span>
-        </div>
-        <div class="form-class">
-          <label for="reference">
-            Entrer la taille de référence pour un rugbyman:
-          </label>
-          <input type="number" min="0" id="reference" required />
-          <span>cm</span>
-        </div>
-        <div class="form-class">
-          <button type="button" onclick="solution()" id="">
-            Enregistrer l'équipe
-          </button>
-        </div>
-      </form>
+      <div class="players-class">
+        <form action="" method="post">
+          <label for="players">Entrer le nombre de joueurs</label>
+          <input type="number" min="0" id="indicateNumber" />
+          <div class="players-class">
+            <button type="button" onclick="numberOfPlayers(indicateNumber)">
+              Valider le nombre de joueurs
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="player-content" class="form-class"></div>
+
       <div class="result-class">
         <p id="result"></p>
       </div>
@@ -55,22 +31,70 @@
 </html>
 
 <script>
+  function numberOfPlayers(el) {
+    let form = document.createElement("form");
+    form.id = "createdForm";
+
+    for (let i = 0; i < el.value; i++) {
+      form.innerHTML =
+        form.innerHTML +
+        `
+        <div class="form-class" id="divJoueurs">
+          <label for="taille" id="tailleJoueurs"
+            >Entrer la taille du rugbyman</label
+          >
+          <input type="number" min="0" id="inputJoueur` +
+        i +
+        `" required /> <span>cm</span>
+        </div>
+        `;
+    }
+    document.getElementById("player-content").appendChild(form);
+    let ref = document.createElement("div");
+    ref.innerHTML =
+      ref.innerHTML +
+      `<div class="form-class">
+          <label for="reference">
+            Entrer la taille de référence pour un rugbyman:
+          </label>
+          <input type="number" min="0" id="reference" required />
+          <span>cm</span>
+      </div>`;
+    document.getElementById("player-content").appendChild(ref);
+    let btn = document.createElement("button");
+    btn.innerHTML = "Confirmer";
+    btn.onclick = this.solution;
+    document.body.appendChild(btn);
+  }
+
   function solution() {
+    let numberOfPlayers = document.getElementById("indicateNumber").value;
     let arrayPlayers = [];
-    arrayPlayers[0] = document.getElementById("taille1").value;
-    arrayPlayers[1] = document.getElementById("taille2").value;
-    arrayPlayers[2] = document.getElementById("taille3").value;
-    arrayPlayers[3] = document.getElementById("taille4").value;
-    arrayPlayers[4] = document.getElementById("taille5").value;
+    for (let i = 0; i < numberOfPlayers; i++) {
+      arrayPlayers.push(document.getElementById("inputJoueur" + i).value);
+    }
+    console.log(arrayPlayers);
     let reference = document.getElementById("reference").value;
     let result = "";
-    for(let i = 0; i < arrayPlayers[i]; i++) {
-      if(arrayPlayers[i] < reference) {
-        result += "Le rugbyman n°" + (i+1) + " est inférieur à la taille de référence" + '<br />';
-      } else if(arrayPlayers[i] > reference) {
-        result += "Le rugbyman n°" + (i+1) + " est supérieur à la taille de référence" + '<br />';
+    for (let i = 0; i < arrayPlayers[i]; i++) {
+      if (arrayPlayers[i] < reference) {
+        result +=
+          "Le rugbyman n°" +
+          (i + 1) +
+          " est inférieur à la taille de référence" +
+          "<br />";
+      } else if (arrayPlayers[i] > reference) {
+        result +=
+          "Le rugbyman n°" +
+          (i + 1) +
+          " est supérieur à la taille de référence" +
+          "<br />";
       } else {
-        result += "Le rugbyman n°" + (i+1) + " est strictement égal à la taille de référence" + '<br />';
+        result +=
+          "Le rugbyman n°" +
+          (i + 1) +
+          " est strictement égal à la taille de référence" +
+          "<br />";
       }
     }
     document.getElementById("result").innerHTML = result;
