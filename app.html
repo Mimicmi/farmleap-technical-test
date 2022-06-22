@@ -132,10 +132,30 @@
     let averageM = parseFloat(totalM / arrayPlayers.length);
     let minValue = Math.min(...arrayPlayers) * 0.01;
     let maxValue = Math.max(...arrayPlayers) * 0.01;
-    let result = "Le total en mètre est de " + totalM.toFixed(2) + "<br>" +
-    "La moyenne en mètre est de " + averageM.toFixed(2) + "<br>" +
-    "La valeur la plus basse est de " + minValue.toFixed(2) + " mètre" + "<br>" + 
-    "La valeur la plus haute est de " + maxValue.toFixed(2) + " mètre" + "<br>";
+    let result =
+      "Le total en mètre est de " +
+      totalM.toFixed(2) +
+      "<br>" +
+      "La moyenne en mètre est de " +
+      averageM.toFixed(2) +
+      "<br>" +
+      "La valeur la plus basse est de " +
+      minValue.toFixed(2) +
+      " mètre" +
+      "<br>" +
+      "La valeur la plus haute est de " +
+      maxValue.toFixed(2) +
+      " mètre" +
+      "<br>";
     document.getElementById("total").innerHTML = result;
+    let clearBtn = document.createElement("button");
+    clearBtn.innerHTML = "Reset l'exercice";
+    clearBtn.onclick = this.locationreload;
+    document.body.appendChild(clearBtn);
+  }
+
+  // Clear all modifications to the DOM
+  function locationreload() {
+    location.reload();
   }
 </script>
